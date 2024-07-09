@@ -31,7 +31,7 @@ using namespace std;
 
 bool Initialize() {
 	WSADATA data;
-	return WSAStartup(MAKEWORD(2, 2), &data);
+	return WSAStartup(MAKEWORD(2, 2), &data) == 0;
 }
 
 void InteractWithClient(SOCKET clientSocket , vector<SOCKET>& clients) {
@@ -74,7 +74,7 @@ int main() {
 	}
 
 	// Creat Address Structure
-	int port = 12335;
+	int port = 12345;
 	sockaddr_in serveraddr;
 	serveraddr.sin_family = AF_INET;
 	serveraddr.sin_port = htons(port); 
@@ -86,6 +86,7 @@ int main() {
 		WSACleanup();
 		return 1;
 	}
+
 	// bind
 	if (bind(listenSocket, reinterpret_cast<sockaddr*>(&serveraddr), sizeof(serveraddr))== SOCKET_ERROR) {
 		cout << "Bind Failed" << endl;
@@ -102,7 +103,7 @@ int main() {
 		return 1;
 	}
 	
-	cout << "Server has started listening on port" << endl;
+	cout << "Server Has Started Listeing on Port : " << port << endl;	
 	vector<SOCKET> clients;
 
 	while (1) {
@@ -114,6 +115,7 @@ int main() {
 		clients.push_back(clientSocket);
 
 		thread t1(InteractWithClient, clientSocket , std::ref(clients));
+		t1.detach();
 	}
 
 	closesocket(listenSocket);

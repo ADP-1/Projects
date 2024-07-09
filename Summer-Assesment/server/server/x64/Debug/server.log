@@ -1,1 +1,3 @@
-﻿  server.vcxproj -> X:\Program files\Projects\Summer-Assesment\server\x64\Debug\server.exe
+﻿  main.cpp
+X:\Program files\Projects\Summer-Assesment\server\main.cpp(51,49): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+  server.vcxproj -> X:\Program files\Projects\Summer-Assesment\server\x64\Debug\server.exe

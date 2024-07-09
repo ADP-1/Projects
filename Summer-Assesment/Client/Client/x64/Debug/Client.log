@@ -1,3 +1,3 @@
 ﻿  main.cpp
-X:\Program files\Projects\Summer-Assesment\Client\Client\main.cpp(61,55): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-  Client.vcxproj -> X:\Program files\Projects\Summer-Assesment\Client\x64\Debug\Client.exe
+X:\Program files\Projects\Summer-Assesment\Client\Client\main.cpp(37,55): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+X:\Program files\Projects\Summer-Assesment\Client\Client\main.cpp(58,18): error C7664: '<=': ordered comparison of pointer and integer zero ('int (__cdecl *)(SOCKET,char *,int,int)' and 'int')

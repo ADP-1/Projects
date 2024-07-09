@@ -1,6 +1,8 @@
 #include <iostream>
 #include <WinSock2.h>
 #include <WS2tcpip.h>
+#include <string>
+#include <thread>
 
 using namespace std;
 
@@ -19,10 +21,54 @@ using namespace std;
      close the socket
 */
 
-bool Initialize(){
+bool Initialize() {
     WSADATA data;
-    return WSAStartup(MAKEWORD(2, 2) , &data) == 0;
+    return WSAStartup(MAKEWORD(2, 2), &data) == 0;
 }
+
+void SendMsg(SOCKET s) {
+    cout << "Enter Your Chat Name : " << endl;
+    string name, message;
+    getline(cin, name);
+
+    while (1) {
+        getline(cin, message);
+        string msg = name + " : " + message;
+        int bytesend = send(s, msg.c_str(), msg.length(), 0);
+        if (bytesend == SOCKET_ERROR) {
+            cout << "Error while sending message" << endl;
+            break;
+        }
+        if (message == "quit") {
+            cout << "Stopping the program" << endl;
+            break;
+        }
+    }
+    closesocket(s);
+    WSACleanup();
+}
+
+void ReceiveMsg(SOCKET s) {
+    char buffer[4096];
+    int recvlength;
+    string msg = "";
+
+    while (1) {
+        recvlength = recv(s, buffer, sizeof(buffer), 0);
+        if (recv <= 0) {
+            cout << "Error While recieving message" << endl;
+            break;
+        }
+        else {
+            msg = string(buffer, recvlength);
+            cout << msg << endl;
+        }
+
+    }
+    closesocket(s);
+    WSACleanup();
+}
+
 
 int main() {
     if (!Initialize()) {
@@ -48,6 +94,7 @@ int main() {
     //  Connecting...
     if (connect(s, reinterpret_cast<sockaddr*>(&serveraddr), sizeof(serveraddr)) == SOCKET_ERROR) {
         cout << "Not able to connect to server" << endl;
+        cout << ": " << WSAGetLastError();
         closesocket(s);
         WSACleanup();
         return 1;
@@ -55,15 +102,10 @@ int main() {
 
     cout << "Successfully connected to server" << endl;
 
-    // send/recv
-    string message = "Hello there! it is written by Aditya Pandey";
-    int bytesent;
-    bytesent = send(s, message.c_str(), message.length(), 0);
-    if (bytesent == SOCKET_ERROR) {
-        cout << "send failed" << endl;
-    }
-    closesocket(s);
+    thread sendThread(SendMsg, s);
+    thread recieverThread(ReceiveMsg, s);
 
-    WSACleanup();
+    sendThread.join();
+    recieverThread.join();
     return 0;
 }

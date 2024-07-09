@@ -1,8 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Client"
+    "\\Client",
+    "\\x64",
+    "\\x64\\Debug"
   ],
-  "SelectedNode": "\\Client\\main.cpp",
+  "SelectedNode": "\\Client.sln",
   "PreviewInSolutionExplorer": false
 }
