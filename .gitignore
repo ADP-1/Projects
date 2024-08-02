@@ -1,0 +1,5 @@
+# Ignore all .bat files
+*.bat
+
+# Ignore AutoGit.py
+AutoGit.py
