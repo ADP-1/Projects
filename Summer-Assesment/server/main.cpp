@@ -36,7 +36,7 @@ bool Initialize() {
 
 void InteractWithClient(SOCKET clientSocket , vector<SOCKET>& clients) {
 	// Send & Recv
-	cout << "clint connected" << endl;
+	cout << "client connected" << endl;
 	char buffer[4096];
 	while (1) {
 		int bytesrecvd = recv(clientSocket, buffer, sizeof(buffer), 0);
