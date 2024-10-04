@@ -1,0 +1,29 @@
+# Compiled Object files
+*.o
+*.obj
+
+# Compiled Binary files
+*.exe
+*.out
+
+# Backup files
+*~
+*.bak
+
+# IDE or Editor specific files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Temporary files
+temp/
+tmp/
+*.tmp
+
+# Logs
+*.log
+
+# Windows specific files
+Thumbs.db
+Desktop.ini
